@@ -3,8 +3,8 @@ package dao
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"time"
+	"web-server/comment"
 
 	_ "github.com/go-sql-driver/mysql" //注册驱动器
 )
@@ -32,7 +32,7 @@ func ConnDB(driverName string, username string, password string, protocol string
 	// 连接测试
 	err = db.Ping()
 	if err != nil {
-		log.Println("Database:", driverName, "test connected failed！")
+		comment.DBLog.Println("Database:", driverName, "test connected failed！")
 	} else {
 		fmt.Println("Database:", driverName, "test connected successfully!")
 	}

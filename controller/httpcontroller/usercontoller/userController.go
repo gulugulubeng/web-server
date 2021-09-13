@@ -2,25 +2,26 @@ package usercontoller
 
 import (
 	"encoding/json"
+	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
-	"web-server/domain"
+	"web-server/model"
 	"web-server/service"
 )
 
-// 注册函数
-func UserRegister(res http.ResponseWriter, req *http.Request) {
+// UserRegister 注册函数
+func UserRegister(res http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	username := req.FormValue("username")
 	password := req.FormValue("password")
 
 	// 统一类型返回结果
-	result := new(domain.ResultInfo)
+	result := new(model.ResultInfo)
 
 	// 参数校验
 	if username != "" && password != "" {
 		result = service.UserRegister(username, password)
 	} else {
-		result = domain.NewResultInfo(403, "注册失败！用户名或密码错误！", nil)
+		result = model.NewResultInfo(403, "注册失败！用户名或密码错误！", nil)
 	}
 
 	// 将结果实例序列化成json格式
@@ -31,5 +32,5 @@ func UserRegister(res http.ResponseWriter, req *http.Request) {
 	res.Write(ans)
 }
 
-// 登录函数
-func UserLogin(res http.ResponseWriter, req *http.Request) {}
+// UserLogin 登录函数
+func UserLogin(res http.ResponseWriter, req *http.Request, _ httprouter.Params) {}

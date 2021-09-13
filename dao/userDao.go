@@ -5,11 +5,11 @@ import (
 	"errors"
 	"time"
 	"web-server/comment"
-	"web-server/domain"
+	"web-server/model"
 )
 
 // UserRegister 用户注册
-func UserRegister(u *domain.User) error {
+func UserRegister(u *model.User) error {
 	// 查询是否已经注册
 	ctx1, _ := context.WithTimeout(comment.Ctx, time.Minute)
 	row := db.QueryRowContext(ctx1, "select id from admin where username=?", u.Username)

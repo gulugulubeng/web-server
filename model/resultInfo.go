@@ -1,4 +1,4 @@
-package domain
+package model
 
 // ResultInfo 统一数据返回类型
 type ResultInfo struct {

@@ -32,3 +32,6 @@ const (
 	rPassword  = ""
 	rDefaultDB = 0 // use default DB
 )
+
+// 日志输出地址
+const loggerPath = "C:\\Users\\李想\\Pictures\\Screenshots"

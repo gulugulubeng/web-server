@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"sync"
+	"web-server/comment"
 	"web-server/controller/httpcontroller"
 	"web-server/controller/tcpcontroller"
 	"web-server/dao"
@@ -10,16 +10,17 @@ import (
 
 // 程序入口
 func main() {
-	log.Println("=======================项目开启========================")
-	// main函数的等待组
-	wg := new(sync.WaitGroup)
+
+	comment.PLog.Println("=======================项目开启========================")
+
+	var wg sync.WaitGroup
 
 	// 开启http监听并服务
 	wg.Add(1)
-	go httpcontroller.HttpServer(wg, httpPort)
+	go httpcontroller.HttpServer(&wg, httpPort)
 	// 开启tcp监听并服务
 	wg.Add(1)
-	go tcpcontroller.TCPServer(wg, tcpPort)
+	go tcpcontroller.TCPServer(&wg, tcpPort)
 	// 开启udp监听并服务
 	//wg.Add(1)
 	//go udpcontroller.UDPServer(wg,udpPort)
@@ -30,5 +31,10 @@ func main() {
 	//dao.ConnRDB(rAddress,rUsername,rPassword, rDefaultDB)
 
 	wg.Wait()
-	log.Println("=======================项目注销========================")
+	comment.PLog.Println("=======================项目注销========================")
+}
+
+func init() {
+	// 开启日志记录
+	comment.StartLogger(loggerPath)
 }
